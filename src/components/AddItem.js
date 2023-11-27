@@ -14,8 +14,8 @@ function AddItem() {
   return (
     <Box>
       <Flex>
-        <Input borderRightRadius={"0"}></Input>
-        <NumberInput w="120px">
+        <Input borderRightRadius={"0"} placeholder={"Item to add"}></Input>
+        <NumberInput w="120px" defaultValue={1} keepWithinRange={true} min={1}>
           <NumberInputField borderRadius={"0"} />
           <NumberInputStepper>
             <NumberIncrementStepper />
