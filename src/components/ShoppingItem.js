@@ -19,14 +19,14 @@ import { useFetch } from "use-http";
 function ShoppingItem(props) {
 
   const id = props.id;
-  const {put, response, del} = useFetch("http://localhost:9000");
+  const {put, response, del} = useFetch("http://localhost:9000/shoppingItem");
   const [content, setContent] = useState(props.content)
   const [count, setCount] = useState(props.count)
   const [isChecked, setIsChecked] = useState(props.checked === "CHECKED");
   const [isEditing, setIsEditing] = useState(false);
 
   async function modifyItem(newContent = content, newCount = count) {
-    await put("/shoppingItem/update", {
+    await put("/update", {
       id: id,
       content: newContent,
       count: newCount
@@ -36,14 +36,14 @@ function ShoppingItem(props) {
 
   async function handleChange() {
     setIsChecked(!isChecked);
-    await put("/shoppingItem/update", {
+    await put("/update", {
       id: id,
       state: !isChecked ? "CHECKED" : "UNCHECKED"
     });
   }
 
   async function handleDelete() {
-    await del(`/shoppingItem/delete?id=${id}`)
+    await del(`/delete?id=${id}`)
   }
   function handleSave(newContent, newCount) {
     modifyItem(newContent, newCount)
