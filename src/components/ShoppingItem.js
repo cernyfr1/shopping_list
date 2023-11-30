@@ -19,28 +19,31 @@ import { useFetch } from "use-http";
 function ShoppingItem(props) {
 
   const id = props.id;
-  const {put, response} = useFetch("http://localhost:9000/shoppingItem");
+  const {put, response, del} = useFetch("http://localhost:9000");
   const [content, setContent] = useState(props.content)
   const [count, setCount] = useState(props.count)
   const [isChecked, setIsChecked] = useState(props.checked === "CHECKED");
   const [isEditing, setIsEditing] = useState(false);
 
   async function modifyItem(newContent = content, newCount = count) {
-    await put("/update", {
+    await put("/shoppingItem/update", {
       id: id,
       content: newContent,
       count: newCount
     });
-    console.log(response.data);
     return response.data;
   }
 
   async function handleChange() {
     setIsChecked(!isChecked);
-    await put("/update", {
+    await put("/shoppingItem/update", {
       id: id,
       state: !isChecked ? "CHECKED" : "UNCHECKED"
     });
+  }
+
+  async function handleDelete() {
+    await del(`/shoppingItem/delete?id=${id}`)
   }
   function handleSave(newContent, newCount) {
     modifyItem(newContent, newCount)
@@ -82,6 +85,7 @@ function ShoppingItem(props) {
               aria-label={"Delete button"}
               borderLeftRadius={"0"}
               icon={<MdDelete />}
+              onClick={handleDelete}
           />
         </Flex>
       </ListItem>
