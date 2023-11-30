@@ -43,11 +43,11 @@ function App() {
         <h2>To buy:</h2>
         <List>
           {shoppingList.map((item) => (
-            <ShoppingItem
-              key={item.id}
-              name={item.content}
-              count={item.count}
-              checked={item.state}
+            <ShoppingItem key={item._id}
+                          id={item._id}
+                          content={item.content}
+                          count={item.count}
+                          checked={item.state}
             />
           ))}
         </List>
