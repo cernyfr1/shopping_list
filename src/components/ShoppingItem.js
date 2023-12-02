@@ -3,7 +3,6 @@ import {
   Checkbox,
   IconButton,
   Flex,
-  Center,
   Input,
   NumberInput,
   NumberInputField,
@@ -44,6 +43,7 @@ function ShoppingItem(props) {
 
   async function handleDelete() {
     await del(`/delete?id=${id}`)
+    props.refresh();
   }
   function handleSave(newContent, newCount) {
     modifyItem(newContent, newCount)
