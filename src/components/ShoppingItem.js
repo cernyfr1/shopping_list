@@ -30,7 +30,6 @@ function ShoppingItem(props) {
       content: newContent,
       count: newCount
     });
-    return response.data;
   }
 
   async function handleChange() {

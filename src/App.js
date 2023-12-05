@@ -3,7 +3,6 @@ import "./App.css";
 import {Button, ChakraProvider, List, VStack} from "@chakra-ui/react";
 import ShoppingItem from "./components/ShoppingItem";
 import AddItem from "./components/AddItem";
-import { useFetch } from "use-http";
 import {useEffect, useState} from "react";
 
 export default App;
