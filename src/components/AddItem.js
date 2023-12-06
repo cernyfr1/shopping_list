@@ -17,27 +17,32 @@ function AddItem(props) {
   const [content, setContent] = useState("");
   const [count, setCount] = useState(1);
   const {post, response} = useFetch("http://localhost:9000/shoppingItem");
+  const [isInvalid, setIsInvalid] = useState(false);
 
   async function postDB() {
-    try {
-      await post("/create", {
-        content: content,
-        count: count,
-        state: "UNCHECKED"}
-      )
-    } catch (error) {
-      console.error(error);
-    } finally {
-      props.refresh();
-      setContent("");
-      setCount(1);
+    if (content === ""){setIsInvalid(true)}
+    else {
+      try {
+        await post("/create", {
+          content: content,
+          count: count,
+          state: "UNCHECKED"}
+        )
+      } catch (error) {
+        console.error(error);
+      } finally {
+        props.refresh();
+        setContent("");
+        setCount(1);
+        setIsInvalid(false);
+      }
     }
   }
 
   return (
     <Box>
       <Flex>
-        <Input borderRightRadius={"0"} placeholder={"Item to add"} value={content} onChange={(e) => setContent(e.target.value)}></Input>
+        <Input borderRightRadius={"0"} placeholder={"Item to add"} value={content} onChange={(e) => setContent(e.target.value)} isInvalid={isInvalid}></Input>
         <NumberInput w="100px" defaultValue={1} keepWithinRange={true} min={1} value={count} onChange={(value) => setCount(Number(value))}>
           <NumberInputField borderRadius={"0"} />
           <NumberInputStepper>
