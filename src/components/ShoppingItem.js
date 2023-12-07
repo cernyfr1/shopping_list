@@ -57,10 +57,17 @@ function ShoppingItem(props) {
       borderColor={"inherit"}
       borderRadius={"0.375rem"}
       margin={"0.6rem"}
+      data-testid={id}
     >
       <Flex>
-        <Checkbox size={"lg"} isChecked={isChecked} onChange={handleChange} />
+        <Checkbox
+          data-testid={"checkbox"}
+          size={"lg"}
+          isChecked={isChecked}
+          onChange={handleChange}
+        />
         <Input
+          data-testid={"content"}
           width={"11rem"}
           value={content}
           border={"none"}
@@ -76,6 +83,7 @@ function ShoppingItem(props) {
           onChange={(value) => setCount(Number(value))}
         >
           <NumberInputField
+            data-testid={"count"}
             borderRadius={"0"}
             disabled={!isEditing}
           ></NumberInputField>

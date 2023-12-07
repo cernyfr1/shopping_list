@@ -18,8 +18,8 @@ function App() {
         const response = await fetch("http://localhost:9000/shoppingItem/list");
         const newShoppingList = await response.json();
         setShoppingList(newShoppingList);
-      } catch (e) {
-        setError(e);
+      } catch (error) {
+        setError(error);
       } finally {
         setIsLoading(false);
       }
@@ -34,7 +34,8 @@ function App() {
   if (error) {
     return (
       <div>
-        <h2>{error}</h2>
+        <h1>Could not connect to the server.</h1>
+        <h2>{error.message}</h2>
       </div>
     );
   }
