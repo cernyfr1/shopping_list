@@ -63,6 +63,7 @@ function ShoppingItem(props) {
         <Checkbox
           data-testid={"checkbox"}
           size={"lg"}
+          marginLeft={"0.8rem"}
           isChecked={isChecked}
           onChange={handleChange}
         />
@@ -104,6 +105,7 @@ function ShoppingItem(props) {
         <IconButton
           aria-label={"Delete button"}
           borderLeftRadius={"0"}
+          color={"red"}
           icon={<MdDelete />}
           onClick={handleDelete}
         />

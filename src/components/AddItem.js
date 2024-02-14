@@ -15,7 +15,7 @@ import { useFetch } from "use-http";
 function AddItem(props) {
   const [content, setContent] = useState("");
   const [count, setCount] = useState(1);
-  const { post, response } = useFetch("http://localhost:9000/shoppingItem");
+  const { post } = useFetch("http://localhost:9000/shoppingItem");
   const [isInvalid, setIsInvalid] = useState(false);
 
   async function postDB() {
@@ -63,7 +63,7 @@ function AddItem(props) {
             <NumberDecrementStepper />
           </NumberInputStepper>
         </NumberInput>
-        <Button borderLeftRadius={"0"} onClick={postDB}>
+        <Button borderLeftRadius={"0"} onClick={postDB} color={"green"}>
           Add
         </Button>
       </Flex>
