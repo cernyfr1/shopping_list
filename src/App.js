@@ -1,65 +1,36 @@
-import { Text, ChakraProvider, Heading, List, VStack } from "@chakra-ui/react";
-import ShoppingItem from "./components/ShoppingItem";
-import AddItem from "./components/AddItem";
-import { useEffect, useState } from "react";
-
+import ShoppingList from "./components/ShoppingList";
+import PageNotFound from "./components/PageNotFound";
+import { ChakraProvider } from "@chakra-ui/react";
+import Login from "./components/Login";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AuthProvider from "react-auth-kit";
+import createStore from "react-auth-kit/createStore";
 export default App;
 
 function App() {
-  const [shoppingList, setShoppingList] = useState([]);
-  const [refreshIndex, setRefreshIndex] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch("http://localhost:9000/shoppingItem/list");
-        const newShoppingList = await response.json();
-        setShoppingList(newShoppingList);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchPosts();
-  }, [refreshIndex]);
-
-  function refresh() {
-    setRefreshIndex(refreshIndex + 1);
-  }
-
-  if (error) {
-    return (
-      <div>
-        <h1>Could not connect to the server.</h1>
-        <h2>{error.message}</h2>
-      </div>
-    );
-  }
+  const store = createStore({
+    authName: "_auth",
+    authType: "cookie",
+    cookieDomain: window.location.hostname,
+    cookieSecure: false,
+  });
+  const browserRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: <ShoppingList />,
+      errorElement: <PageNotFound />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+  ]);
 
   return (
-    <ChakraProvider>
-      <VStack p={"2rem"}>
-        <Heading>Shopping List</Heading>
-        <AddItem refresh={refresh} />
-        <Heading size={"lg"}>To buy:</Heading>
-        <List>
-          {shoppingList.length === 0 && <Text>the list is empty...</Text>}
-          {shoppingList.map((item) => (
-            <ShoppingItem
-              key={item._id}
-              id={item._id}
-              content={item.content}
-              count={item.count}
-              checked={item.state}
-              refresh={refresh}
-            />
-          ))}
-        </List>
-      </VStack>
-    </ChakraProvider>
+    <AuthProvider store={store}>
+      <ChakraProvider>
+        <RouterProvider router={browserRouter} />
+      </ChakraProvider>
+    </AuthProvider>
   );
 }
