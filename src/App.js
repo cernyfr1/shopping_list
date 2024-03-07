@@ -1,10 +1,10 @@
-import ShoppingList from "./components/ShoppingList";
 import PageNotFound from "./components/PageNotFound";
 import { ChakraProvider } from "@chakra-ui/react";
 import Login from "./components/Login";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthProvider from "react-auth-kit";
 import createStore from "react-auth-kit/createStore";
+import SecureApp from "./components/SecureApp";
 export default App;
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
   const browserRouter = createBrowserRouter([
     {
       path: "/",
-      element: <ShoppingList />,
+      element: <SecureApp />,
       errorElement: <PageNotFound />,
     },
     {
